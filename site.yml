@@ -1,0 +1,21 @@
+---
+
+- hosts: complete
+  name: setup all nodes
+  become: true
+  roles:
+    - role: kubesprayMaster
+      tags: complete
+
+- hosts: master
+  gather_facts: true
+  name: setup kubespray/Dashboard and deploy container on master
+  roles:
+    - role: kubespray
+      tags: local
+    - role: kubesprayDashboard 
+      tags: masterDash
+    - role: kubeDeployContainer
+      tags: container 
+
+
