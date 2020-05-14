@@ -14,6 +14,14 @@
   become: yes
   with_items:  "{{ports}}" 
 
+- name: enable service on Master
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+  become: yes
+  with_items:  "{{services}}"
+  
 - name: reload firewall
   command: sudo firewall-cmd --reload
 
